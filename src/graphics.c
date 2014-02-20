@@ -1,26 +1,19 @@
-/**
- *
- * SLACKNET CONFIDENTIAL
- * __________________
- *
- *  [2012] - [2013] SlackNet, LLC
- *  All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of SlackNet, LLC and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to SlackNet, LLC
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from SlackNet, LLC.
- */
-
 #include "graphics.h"
 #include "util.h"
 
-void set_bounds(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
+TTF_Font* load_font(char* file, int ptsize)
+{
+	TTF_Font* font = TTF_OpenFont(file, ptsize);
+	if(!font) {
+		printf("Unable to load font: %s %s \n", file, TTF_GetError());
+		exit(1);
+	}
+
+	return font;
+}
+
+void set_bounds(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
+{
 	if(x1 < 0) x1 = 0;
 	if(y1 < 0) y1 = 0;
 	if(x2 > WIDTH) x2 = WIDTH;
@@ -31,7 +24,8 @@ void set_bounds(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
 	bounds_bottom_y = y2;
 }
 
-void reset_bounds() {
+void reset_bounds()
+{
 	bounds_top_x = 0;
 	bounds_top_y = 0;
 	bounds_bottom_x = WIDTH;
@@ -39,7 +33,8 @@ void reset_bounds() {
 }
 
 void draw_gradient(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t colour_top,
-		uint32_t colour_bottom) {
+		uint32_t colour_bottom)
+{
 	if(x < bounds_top_x) {
 		width -= bounds_top_x - x;
 		x = bounds_top_x;
@@ -70,7 +65,8 @@ void draw_gradient(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint
 		}
 }
 
-void draw_line_horiz(uint16_t x, uint16_t y, uint16_t width, uint32_t colour) {
+void draw_line_horiz(uint16_t x, uint16_t y, uint16_t width, uint32_t colour)
+{
 	if(y < bounds_top_y || y >= bounds_bottom_y) return;
 	if(x < bounds_top_x) {
 		width -= bounds_top_x - x;
@@ -84,7 +80,8 @@ void draw_line_horiz(uint16_t x, uint16_t y, uint16_t width, uint32_t colour) {
 	}
 }
 
-void draw_line_vert(uint16_t x, uint16_t y, uint16_t height, uint32_t colour) {
+void draw_line_vert(uint16_t x, uint16_t y, uint16_t height, uint32_t colour)
+{
 	if(x < bounds_top_x || x >= bounds_bottom_x) return;
 	if(y < bounds_top_y) {
 		height -= bounds_top_y - y;
@@ -159,7 +156,8 @@ void draw_line_vert(uint16_t x, uint16_t y, uint16_t height, uint32_t colour) {
  return;
  }*/
 
-void draw_box(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint32_t colour) {
+void draw_box(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint32_t colour)
+{
 	if(x < bounds_top_x) {
 		w -= bounds_top_x - x;
 		x = bounds_top_x;
@@ -183,12 +181,14 @@ void draw_box(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint32_t colour) {
 	}
 }
 
-void fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
+void fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
+{
 	SDL_Rect rect = { x, y, width, height };
 	SDL_FillRect(surface, &rect, color);
 }
 
-void show_loading_progress(uint8_t i, char *s) {
+void show_loading_progress(uint8_t i, char *s)
+{
 	int j = (WIDTH - 281) / 2;
 	int k = (HEIGHT - 148) / 2;
 	j += 2;
@@ -202,7 +202,8 @@ void show_loading_progress(uint8_t i, char *s) {
 //	drawString(graphics, s, font_timesroman_15, j + 138, k + 10);
 }
 
-void draw_button(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
+void draw_button(uint16_t x, uint16_t y, uint16_t width, uint16_t height)
+{
 	set_bounds(x, y, x + width, y + height);
 	draw_gradient(x, y, width, height, SDL_MapRGB(surface->format, 84, 93, 120),
 			SDL_MapRGB(surface->format, 135, 146, 179));

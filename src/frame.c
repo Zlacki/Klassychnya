@@ -1,26 +1,8 @@
-/**
- *
- * SLACKNET CONFIDENTIAL
- * __________________
- *
- *  [2012] - [2013] SlackNet, LLC
- *  All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of SlackNet, LLC and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to SlackNet, LLC
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from SlackNet, LLC.
- */
-
 #include "graphics.h"
 #include "util.h"
 
-static void process_game(void) {
+static void process_game(void)
+{
 	int current_ticks, wait_ticks;
 	current_ticks = SDL_GetTicks();
 	wait_ticks = (old_ticks + 14 - current_ticks);
@@ -36,11 +18,13 @@ static void process_game(void) {
 	SDL_Flip(surface);
 }
 
-static void cleanup(void) {
+static void cleanup(void)
+{
 	SDL_Quit();
 }
 
-static void init_frame(void) {
+static void init_frame(void)
+{
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("SEVERE: Could not initialize the SDL.\n");
 		exit(1);
@@ -59,9 +43,11 @@ static void init_frame(void) {
 }
 
 #if defined (DARWIN) || defined (WIN32)
-int SDL_main(int argc, char *argv[]) {
+int SDL_main(int argc, char *argv[])
+{
 #else
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 #endif
 	printf("THIS IS ONLY A PROTOTYPE FOR MY GAME CLIENT!\nIT IS PROBABLY FAR FROM FINISHED.\n\n");
 	puts("Loading game...");
