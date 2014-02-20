@@ -1,0 +1,27 @@
+include config.mk
+
+OBJ=bin/frame.o bin/graphics.o bin/util.o
+
+all: mkbin options klassychnya
+
+mkbin:
+	@mkdir -p bin
+
+options:
+	@echo klassychnyy build options:
+	@echo "CFLAGS  = ${CFLAGS}"
+	@echo "LDFLAGS = ${LDFLAGS}"
+	@echo "CC      = ${CC}"
+
+bin/%.o: src/%.c
+	@echo CC $<
+	@${CC} -o $@ -c ${CFLAGS} $<
+
+klassychnya: ${OBJ}
+	@echo CC -o $@
+	@${CC} -o $@ ${OBJ} ${LDFLAGS}
+	@echo $@ finished compiling.
+
+clean:
+	@echo cleaning
+	@rm -f bin/*.o klassychnyy
