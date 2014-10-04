@@ -2,13 +2,13 @@ include config.mk
 
 OBJ=bin/frame.o bin/graphics.o bin/util.o
 
-all: mkbin options klassychnya.exe
+all: mkbin options klassychnya
 
 mkbin:
 	@mkdir -p bin
 
 options:
-	@echo klassychnya.exe build options:
+	@echo klassychnya build options:
 	@echo "CFLAGS  = ${CFLAGS}"
 	@echo "LDFLAGS = ${LDFLAGS}"
 	@echo "CC      = ${CC}"
@@ -17,11 +17,11 @@ bin/%.o: src/%.c
 	@echo CC $<
 	@${CC} -o $@ -c ${CFLAGS} $<
 
-klassychnya.exe: ${OBJ}
+klassychnya: ${OBJ}
 	@echo CC -o $@
-	@${CC} -static -o $@ ${OBJ} ${LDFLAGS}
+	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 	@echo $@ finished compiling.
 
 clean:
 	@echo cleaning
-	@rm -f bin/*.o klassychnya.exe
+	@rm -f bin/*.o klassychnya
